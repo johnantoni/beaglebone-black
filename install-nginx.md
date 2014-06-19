@@ -15,4 +15,8 @@ make sure apache is removed
 
 installs to /usr/local/nginx
 
+# problem in systemctl
 
+    sudo systemctl status nginx.service
+
+to view it
