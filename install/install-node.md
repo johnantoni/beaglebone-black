@@ -1,5 +1,7 @@
 #### install latest node for ARM
 
+##### doesn't work
+
 https://learn.adafruit.com/raspberry-pi-hosting-node-red/setting-up-node-dot-js
 
     sudo wget http://node-arm.herokuapp.com/node_latest_armhf.deb
@@ -9,6 +11,8 @@ https://learn.adafruit.com/raspberry-pi-hosting-node-red/setting-up-node-dot-js
     curl -L https://npmjs.org/install.sh | sudo sh
     npm -v
     => 1.4.23
+
+##### does
 
 ...this would work but there's problems with identifying the processor under ARM, so best to install a pre-built package
 
