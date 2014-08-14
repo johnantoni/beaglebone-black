@@ -21,3 +21,8 @@ http://stackoverflow.com/questions/18130164/nodejs-vs-node-on-ubuntu-12-04
     curl http://npmjs.org/install.sh | sh
     npm --version
     => 1.4.23
+
+then if your building packages for say ghost, run
+
+    cd ghost
+    sudo npm install --production
