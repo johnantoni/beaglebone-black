@@ -1,24 +1,23 @@
 #### install latest node for ARM
 
-##### doesn't work
-
-https://learn.adafruit.com/raspberry-pi-hosting-node-red/setting-up-node-dot-js
-
-    sudo wget http://node-arm.herokuapp.com/node_latest_armhf.deb
-    sudo dpkg -i node_latest_armhf.deb
-    node -v
-    => v0.10.29
-    curl -L https://npmjs.org/install.sh | sudo sh
-    npm -v
-    => 1.4.23
-
-##### does
-
-...this would work but there's problems with identifying the processor under ARM, so best to install a pre-built package
-
-https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
+first enable backports
 
     sudo su
-    apt-get install curl lsb-release
-    curl -sL https://deb.nodesource.com/setup | bash -
-    apt-get install nodejs nodejs-legacy npm
+    vim /etc/apt/sources.list
+    ...then enable backports
+    
+    apt-get update
+    apt-get install nodejs
+    nodejs --version
+    => 0.10.29
+    
+now you'll have nodejs installed, but it will be installed as nodejs, not node as there's a package conflict with node
+
+so you'll have to make a symlink to node in order to install npm
+
+http://stackoverflow.com/questions/18130164/nodejs-vs-node-on-ubuntu-12-04
+
+    sudo ln -s /usr/bin/nodejs /usr/bin/node
+    curl http://npmjs.org/install.sh | sh
+    npm --version
+    => 1.4.23
