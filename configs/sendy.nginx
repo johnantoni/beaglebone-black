@@ -1,0 +1,54 @@
+server {
+    listen *:443;
+ 
+	ssl    on;
+	ssl_certificate      /dir/cert.crt;
+    ssl_certificate_key   /dir/cert.key;
+
+    server_name sendy.uxi.in;
+ 
+    autoindex off;
+    index index.php index.html;
+ 
+    root /dir/sendy;
+    access_log /var/log/sendy.access.log;
+    error_log /var/log/sendy.error.log;
+ 
+    location / {
+        try_files $uri $uri/ $uri.php?$args;
+    }
+ 
+    location /l/ {
+        rewrite ^/l/([a-zA-Z0-9/]+)$ /l.php?i=$1 last;
+    }
+ 
+    location /t/ {
+        rewrite ^/t/([a-zA-Z0-9/]+)$ /t.php?i=$1 last;
+    }
+ 
+    location /w/ {
+        rewrite ^/w/([a-zA-Z0-9/]+)$ /w.php?i=$1 last;
+    }
+ 
+    location /unsubscribe/ {
+        rewrite ^/unsubscribe/(.*)$ /unsubscribe.php?i=$1 last;
+    }
+ 
+    location /subscribe/ {
+        rewrite ^/subscribe/(.*)$ /subscribe.php?i=$1 last;
+    }
+ 
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+ 
+    location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|xml)$ {
+        access_log off;
+        log_not_found off;
+        expires 30d;
+    }
+}
